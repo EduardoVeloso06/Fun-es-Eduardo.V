@@ -1,12 +1,12 @@
 const caixaPrincipal = document.querySelector(".caixa-principal");
-const caixaPergunstas = document.querySelector(".caixa-perguntas");
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Em seu estilo de vida saúdavel. Voce se encaixa em qual etilo de atividade física?",
+        enunciado: "Em seu estilo de vida saúdavel. Voce se encaixa em qual estilo de atividade física?",
         alternativas: [
             {
                 texto: " Esportes",
@@ -58,18 +58,49 @@ const perguntas = [
         ]
     },
     {
-        enunciado: " Pergunta?",
+        enunciado: " Você tem uma motivação que ajuda em sua rotina saudavel?",
         alternativas: [
             {
-                texto: " Texto/resposta ",
-                afirmacao: "Afirmação",
+                texto: " Tenho um objetivo em mente! ",
+                afirmacao: "Este objetivo fara você ser um legítimo campeão, dando tudo de sí para estar enfrentando diversos obstáculos.",
             },
             {
-                texto: " Texto/resposta ",
-                afirmacao: " Afirmação ",
+                texto: " Aina não tenho nenhum objetivo em mente! ",
+                afirmacao: " Enfim, se você ainda não tem nenhum objetivo em mente, fique calmo. Com o tempo você irá perceber qual a sua motivação para uma rotina ideal ",
             }
         ]
     },
 ];
 
 
+let atual = 0;
+let perguntaAtual;
+let historiaFinal = "";
+
+function mostraPergunta(){
+    perguntaAtual = perguntas[atual];
+    caixaPerguntas.textContent = perguntaAtual.enunciado;
+    caixaAlternativas.textContent = "";
+    mostraAlternativas ();
+}
+
+function mostraAlternativas(){
+    for(const alternativa of perguntaAtual.alternativas){
+        const botaoAlternativas = document.createElement("button");
+        botaoAlternativas.textContent = alternativa.texto;
+        caixaAlternativas.appendChild(botaoAlternativas);
+        botaoAlternativas.addEventListener("click", () => respostasSelecionadas(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativas);
+    }
+}
+
+function respostasSelecionadas(opcaoSelecionada){
+    const afirmacoes = opcaoSelecionada.afirmacao;
+    historiaFinal = afirmacoes;
+    atual++;
+    mostraPergunta();
+}
+
+
+
+mostraPergunta();
