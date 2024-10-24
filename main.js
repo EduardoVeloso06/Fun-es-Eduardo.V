@@ -78,6 +78,11 @@ let perguntaAtual;
 let historiaFinal = "";
 
 function mostraPergunta(){
+    if(atual >= perguntas.length){
+        mostraResultado();
+        return;
+    }
+
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
@@ -96,9 +101,15 @@ function mostraAlternativas(){
 
 function respostasSelecionadas(opcaoSelecionada){
     const afirmacoes = opcaoSelecionada.afirmacao;
-    historiaFinal = afirmacoes;
+    historiaFinal += afirmacoes + " ";
     atual++;
     mostraPergunta();
+}
+
+function mostraResultado(){
+    caixaPerguntas.textContent = "Em relação a sua vida ...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = "";
 }
 
 
